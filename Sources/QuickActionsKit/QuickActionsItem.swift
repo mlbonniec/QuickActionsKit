@@ -7,9 +7,9 @@
 
 import UIKit
 
-protocol QuickActionType: RawRepresentable where RawValue == String {}
+public protocol QuickActionType: Sendable, RawRepresentable, Hashable where RawValue == String {}
 
-struct QuickActionsItem<T> where T: QuickActionType {
+public struct QuickActionsItem<T>: Hashable where T: QuickActionType {
     // MARK: Properties
     public let type: T
 
@@ -17,29 +17,29 @@ struct QuickActionsItem<T> where T: QuickActionType {
 
     public let subtitle: String?
 
-    public let isAvailable: Bool
-
     public let icon: Icon?
 
+    public let isAvailable: Bool
+
     // MARK: Lifecycle
-    init(
+    public init(
         type: T,
         title: String,
         subtitle: String? = nil,
-        isAvailable: Bool = true,
-        icon: Icon? = nil
+        icon: Icon? = nil,
+        isAvailable: Bool = true
     ) {
         self.type = type
         self.title = title
         self.subtitle = subtitle
-        self.isAvailable = isAvailable
         self.icon = icon
+        self.isAvailable = isAvailable
     }
 }
 
 extension QuickActionsItem {
     // MARK: Data
-    public enum Icon {
+    public enum Icon: Hashable {
         case type(UIApplicationShortcutIcon.IconType)
         case systemName(String)
         case template(String)
