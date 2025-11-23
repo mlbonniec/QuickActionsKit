@@ -20,12 +20,16 @@ final public class QuickActionsManager<T> where T: QuickActions {
     // MARK: Methods
     @MainActor
     public func update() {
-        // TODO: Refresh QuickActions
-        let application = UIApplication.shared
-        let actions = configuration.getDynamicActions().union(configuration.getDefaultActions())
-        let available = actions.compactMap(QuickActionsMapper.map)
-        let empty = configuration.getEmptyActions().compactMap(QuickActionsMapper.map)
+        UIApplication.shared.shortcutItems = configuration.actions.compactMap(QuickActionsMapper.map)
+    }
 
-        application.shortcutItems = available.isEmpty ? empty : available
+    @discardableResult
+    public func perform(for action: UIApplicationShortcutItem) -> Bool {
+        guard let type = T.T(rawValue: action.type) else {
+            assert(false, "Failed to parse type property from UIApplicationShortcutItem.")
+            return false
+        }
+
+        return configuration.performAction(for: type, with: action.userInfo)
     }
 }
