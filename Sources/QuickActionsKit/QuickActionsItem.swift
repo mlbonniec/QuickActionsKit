@@ -26,7 +26,7 @@ public struct QuickActionsItem<T>: Hashable where T: QuickActionType {
     public let icon: Icon?
 
     /// The quick action availability.
-    public let isAvailable: Bool
+    public let availability: Bool
 
     // MARK: Lifecycle
     /// Construct a new `QuickActionsItem` with all the properties.
@@ -35,13 +35,13 @@ public struct QuickActionsItem<T>: Hashable where T: QuickActionType {
         title: String,
         subtitle: String? = nil,
         icon: Icon? = nil,
-        isAvailable: Bool = true
+        availability: Bool = true
     ) {
         self.type = type
         self.title = title
         self.subtitle = subtitle
         self.icon = icon
-        self.isAvailable = isAvailable
+        self.availability = availability
     }
 }
 
