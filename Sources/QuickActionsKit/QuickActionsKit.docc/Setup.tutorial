@@ -8,13 +8,13 @@
     @Chapter(name: "Configuration") {
         @TutorialReference(tutorial: "doc:Defining-Your-QuickActions")
         
-        @Image(source: Cover, alt: "Cover")
+        @Image(source: ConfigurationMenu, alt: "Quick Actions menu on iOS")
     }
     
     @Chapter(name: "Setup") {
-        @TutorialReference(tutorial: "doc:Setup-QuickActions-for-SwiftUI")
         @TutorialReference(tutorial: "doc:Setup-QuickActions-for-UIKit")
-        
+        <!-- @TutorialReference(tutorial: "doc:Setup-QuickActions-for-SwiftUI") -->
+
         @Image(source: SwiftUI-UIKit.png, alt: "SwiftUI and UIKit logos")
     }
 }

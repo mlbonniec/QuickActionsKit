@@ -2,7 +2,7 @@ import QuickActionsKit
 
 enum MyQuickActionsType: String, QuickActionType {
     case home
-    case editor
+    case create
 }
 
 class MyQuickActions: QuickActions {
@@ -12,6 +12,13 @@ class MyQuickActions: QuickActions {
             title: "Go Home",
             subtitle: "Redirect to Home",
             icon: nil
+        ),
+        QuickActionsItem<MyQuickActionsType>(
+            type: .create,
+            title: "Create",
+            subtitle: nil,
+            icon: .systemName("plus"),
+            isAvailable: MyApplicationSingleton.current.isUserLogged
         )
     ]
 }

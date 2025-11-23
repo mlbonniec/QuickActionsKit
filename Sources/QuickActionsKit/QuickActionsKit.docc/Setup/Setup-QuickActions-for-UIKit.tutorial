@@ -1,5 +1,149 @@
-@Tutorial(time: 10) {
+@Tutorial(time: 5) {
     @Intro(title: "Setup QuickActions for UIKit") {
-        Learn how to configure the QuickActionsKit library to enhance your application's shortcuts.
+        Learn how to dynamically update QuickActions and perform their actions.
+    }
+        
+    @Section(title: "Integrate QuickActionsManager in SceneDelegate") {
+        The `SceneDelegate` class handles all QuickActions lifecycle events, from initialization to action performance and updates.
+        
+        @Steps {
+            @Step {
+                Create a `QuickActionsManager` instance and pass your configuration to it. Store this as a property so it persists throughout the scene's lifecycle.
+                
+                @Code(name: "SceneDelegate.swift", file: SetupUIKitStep1)
+            }
+            
+            @Step {
+                Handle QuickActions when your app launches from a cold start. Check if the scene was opened via a QuickAction and perform the corresponding action.
+                
+                @Code(name: "SceneDelegate.swift", file: SetupUIKitStep2)
+            }
+            
+            @Step {
+                Handle QuickActions when your app is already running. Implement the `perform` method to respond when users tap a QuickAction while your app is in the background.
+                
+                @Code(name: "SceneDelegate.swift", file: SetupUIKitStep3)
+            }
+            
+            @Step {
+                Update the available QuickActions when the scene becomes inactive. This ensures your shortcuts reflect the current state of your app.
+                
+                @Code(name: "SceneDelegate.swift", file: SetupUIKitStep4)
+            }
+        }
+    }
+    
+    @Assessments {
+        @MultipleChoice {
+            Where should you create the `QuickActionsManager` instance in your UIKit app?
+            
+            @Choice(isCorrect: false) {
+                In the AppDelegate
+                
+                @Justification {
+                    The AppDelegate doesn't handle scene lifecycle events in apps using UIWindowScene.
+                }
+            }
+                    
+            @Choice(isCorrect: true) {
+                In the SceneDelegate as a stored property
+                
+                @Justification {
+                    Correct! The SceneDelegate manages scene lifecycle events and is the appropriate place to handle QuickActions throughout the app's lifecycle.
+                }
+            }
+                        
+            @Choice(isCorrect: false) {
+                In each ViewController that needs QuickActions
+
+                @Justification {
+                    Creating multiple instances would lead to inconsistent behavior. A single manager in SceneDelegate handles all QuickActions centrally.
+                }
+            }
+        }
+
+        @MultipleChoice {
+            When should you call `actions.perform()` to handle a cold launch via QuickAction?
+
+            @Choice(isCorrect: true) {
+                In `scene(_:willConnectTo:options:)` by checking `connectionOptions.shortcutItem`
+
+                @Justification {
+                    Correct! This method is called when the scene is first created, making it perfect for handling QuickActions that launched the app.
+                }
+            }
+
+            @Choice(isCorrect: false) {
+                In `sceneDidBecomeActive(_:)`
+
+                @Justification {
+                    This method is called every time the scene becomes active, not just on launch. You'd lose the shortcut item context.
+                }
+            }
+
+            @Choice(isCorrect: false) {
+                In `windowScene(_:performActionFor:)`
+
+                @Justification {
+                    This method handles QuickActions when the app is already running, not during cold launch.
+                }
+            }
+        }
+
+        @MultipleChoice {
+            What is the purpose of calling `actions.update()` in `sceneWillResignActive(_:)`?
+
+            @Choice(isCorrect: false) {
+                To save the user's current position in the app
+                
+                @Justification {
+                    The update method doesn't handle navigation state or user position.
+                }
+            }
+    
+            @Choice(isCorrect: true) {
+                To refresh the available QuickActions based on the current app state
+        
+                @Justification {
+                    Correct! This ensures your Home Screen shortcuts reflect the most current state of your app when the user backgrounds it.
+                }
+            }
+            
+            @Choice(isCorrect: false) {
+                To clear all QuickActions when the app goes to the background
+                
+                @Justification {
+                    Update refreshes the QuickActions list; it doesn't remove them. QuickActions should persist for quick app access.
+                }
+            }
+        }
+                    
+        @MultipleChoice {
+            What should the `windowScene(_:performActionFor:)` method return?
+                    
+            @Choice(isCorrect: false) {
+                `Void` - it doesn't need to return anything
+                            
+                @Justification {
+                    This method must return a Bool to indicate whether the action was handled successfully.
+                }
+            }
+                                
+            @Choice(isCorrect: true) {
+                `Bool` - indicating whether the action was successfully handled
+                                
+                @Justification {
+                    Correct! Returning a Bool tells the system whether your app successfully processed the QuickAction.
+                }
+            }
+                                        
+            @Choice(isCorrect: false) {
+                `UIApplicationShortcutItem` - the action that was performed
+                                            
+                @Justification {
+                    The shortcut item is an input parameter, not a return value. The method returns a Bool for success status.
+                }
+            }
+        }
     }
 }

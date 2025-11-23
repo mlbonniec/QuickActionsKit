@@ -29,5 +29,5 @@ QuickActionsKit simplifies the implementation of 3D Touch and long-press shortcu
 
 ### Integration Guides
 
-- <doc:Setup-QuickActions-for-SwiftUI>
 - <doc:Setup-QuickActions-for-UIKit>
+<!-- - <doc:Setup-QuickActions-for-SwiftUI> -->

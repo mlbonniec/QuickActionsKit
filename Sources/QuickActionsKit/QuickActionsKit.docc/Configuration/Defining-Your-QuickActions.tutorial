@@ -14,7 +14,7 @@
                 
                 Each case represents a unique shortcut that will appear on the Home Screen.
                 
-                @Code(name: "MyQuickActions.swift", file: Step1.swift)
+                @Code(name: "MyQuickActions.swift", file: ConfigurationStep1)
             }
             
             @Step {
@@ -22,7 +22,7 @@
                 
                 This property returns an array of all available quick actions with their display properties like title, subtitle, and icon.
                 
-                @Code(name: "MyQuickActions.swift", file: Step2.swift)
+                @Code(name: "MyQuickActions.swift", file: ConfigurationStep2)
             }
             
             @Step {
@@ -30,7 +30,7 @@
                 
                 You can dynamically show or hide actions based on user authentication status, feature availability, time of day, or any other app state. This ensures users only see relevant shortcuts.
                 
-                @Code(name: "MyQuickActions.swift", file: Step3.swift)
+                @Code(name: "MyQuickActions.swift", file: ConfigurationStep3)
             }
             
             @Step {
@@ -38,7 +38,7 @@
                 
                 This method is called when a user taps a quick action from the Home Screen. Use the action type to navigate to the appropriate screen or trigger the corresponding feature.
                 
-                @Code(name: "MyQuickActions.swift", file: Step4.swift)
+                @Code(name: "MyQuickActions.swift", file: ConfigurationStep4)
             }
         }
     }
