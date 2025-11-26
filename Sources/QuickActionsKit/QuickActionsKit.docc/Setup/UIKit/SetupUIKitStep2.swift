@@ -3,7 +3,7 @@ import QuickActionsKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: Properties
-    private let actions: QuickActionsManager = QuickActionsManager(HMQuickActions())
+    private var manager: QuickActionsManager<MyQuickActions, SceneDelegate>?
 
     // MARK: Lifecycle
     func scene(
@@ -11,8 +11,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         willConnectTo session: UISceneSession,
         options connectionOptions: UIScene.ConnectionOptions
     ) {
+        self.manager = QuickActionsManager(HMQuickActions(), handler: self)
+
         if let shortcutItem = connectionOptions.shortcutItem {
-            actions.perform(action: shortcutItem)
+            Task {
+                await manager?.handle(shortcut: shortcutItem)
+            }
         }
 
         // …

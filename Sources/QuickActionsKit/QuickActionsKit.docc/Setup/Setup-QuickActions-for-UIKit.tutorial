@@ -7,8 +7,8 @@
         The `SceneDelegate` class handles all QuickActions lifecycle events, from initialization to action performance and updates.
         
         @Steps {
-            @Step {
-                Create a `QuickActionsManager` instance and pass your configuration to it. Store this as a property so it persists throughout the scene's lifecycle.
+            @Step { 
+                Define a private `QuickActionsManager` property so it persists throughout the scene's lifecycle.
                 
                 @Code(name: "SceneDelegate.swift", file: SetupUIKitStep1)
             }
@@ -29,6 +29,14 @@
                 Update the available QuickActions when the scene becomes inactive. This ensures your shortcuts reflect the current state of your app.
                 
                 @Code(name: "SceneDelegate.swift", file: SetupUIKitStep4)
+            }
+            
+            @Step {
+                Implement the `QuickActionsHandler` protocol to handle action selection. You can create an independant class, or simply use your `SceneDelegate` by adding an extension to it.
+                
+                The `handle` method will be called when a user taps a quick action from the Home Screen. Use the action type to navigate to the appropriate screen or trigger the corresponding feature.
+                
+                @Code(name: "SceneDelegate.swift", file: SetupUIKitStep5)
             }
         }
     }

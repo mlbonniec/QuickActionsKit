@@ -32,14 +32,6 @@
                 
                 @Code(name: "MyQuickActions.swift", file: ConfigurationStep3)
             }
-            
-            @Step {
-                Implement the `perform` method to handle action selection.
-                
-                This method is called when a user taps a quick action from the Home Screen. Use the action type to navigate to the appropriate screen or trigger the corresponding feature.
-                
-                @Code(name: "MyQuickActions.swift", file: ConfigurationStep4)
-            }
         }
     }
 }

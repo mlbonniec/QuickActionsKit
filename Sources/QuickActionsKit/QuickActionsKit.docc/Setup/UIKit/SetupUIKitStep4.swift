@@ -11,8 +11,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         willConnectTo session: UISceneSession,
         options connectionOptions: UIScene.ConnectionOptions
     ) {
+        self.manager = QuickActionsManager(HMQuickActions(), handler: self)
+
         if let shortcutItem = connectionOptions.shortcutItem {
-            actions.perform(action: shortcutItem)
+            Task {
+                await manager?.handle(shortcut: shortcutItem)
+            }
         }
 
         // …
@@ -22,10 +26,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         _ windowScene: UIWindowScene,
         performActionFor shortcutItem: UIApplicationShortcutItem
     ) async -> Bool {
-        actions.perform(action: shortcutItem)
+        await manager?.handle(shortcut: shortcutItem) ?? false
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        actions.update()
+        manager?.update()
     }
 }
