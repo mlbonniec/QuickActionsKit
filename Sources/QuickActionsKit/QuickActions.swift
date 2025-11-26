@@ -18,12 +18,26 @@ import UIKit
 ///     // …
 /// }
 /// ```
-public protocol QuickActions {
-    associatedtype T: QuickActionType
+public protocol QuickActions<ActionType> {
+    associatedtype ActionType: QuickActionType
+
+    /// The limit of actions to display.
+    var limit: Int { get }
 
     /// The list of dynamic actions.
-    var actions: Set<QuickActionsItem<T>> { get }
+    func actions() -> Set<QuickActionsItem<ActionType>>
+}
 
-    /// The method to be called once a quick action item has been tapped.
-    func perform(for type: T, with userInfo: [String:NSSecureCoding]?) -> Bool
+public extension QuickActions {
+    var limit: Int { 4 }
+}
+
+extension QuickActions {
+    var shortcutItems: [UIApplicationShortcutItem] {
+        Array(
+            actions()
+                .compactMap(QuickActionsMapper.map)
+                .prefix(limit)
+        )
+    }
 }
