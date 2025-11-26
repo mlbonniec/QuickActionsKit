@@ -89,7 +89,7 @@ public struct QuickActionsItem<T>: Hashable where T: QuickActionType {
     public let icon: Icon?
 
     /// The quick action availability.
-    public let availability: Bool
+    public let availability: () -> Bool
 
     // MARK: Lifecycle
     /// Construct a new `QuickActionsItem` with all the properties.
@@ -98,7 +98,7 @@ public struct QuickActionsItem<T>: Hashable where T: QuickActionType {
         title: String,
         subtitle: String? = nil,
         icon: Icon? = nil,
-        availability: Bool = true
+        availability: @escaping () -> Bool = { true }
     ) {
         self.type = type
         self.title = title
@@ -107,8 +107,12 @@ public struct QuickActionsItem<T>: Hashable where T: QuickActionType {
         self.availability = availability
     }
 
-    static public func == (lhs: QuickActionsItem, rhs: QuickActionsItem) -> Bool {
+    public static func == (lhs: QuickActionsItem<T>, rhs: QuickActionsItem<T>) -> Bool {
         lhs.type == rhs.type
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(type)
     }
 }
 
@@ -139,3 +143,4 @@ extension QuickActionsItem {
         case template(String)
     }
 }
+

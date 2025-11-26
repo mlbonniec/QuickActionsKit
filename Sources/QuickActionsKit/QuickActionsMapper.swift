@@ -13,7 +13,7 @@ enum QuickActionsMapper {
     static func map<T>(
         from item: QuickActionsItem<T>
     ) -> UIApplicationShortcutItem? where T: QuickActionType {
-        guard item.availability else { return nil }
+        guard item.availability() else { return nil }
 
         return UIApplicationShortcutItem(
             type: item.type.rawValue,

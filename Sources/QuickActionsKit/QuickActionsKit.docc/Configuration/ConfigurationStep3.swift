@@ -19,7 +19,9 @@ final class MyQuickActions: QuickActions {
                 title: "Create",
                 subtitle: nil,
                 icon: .systemName("plus"),
-                availability: MyApplicationSingleton.current.isUserLogged
+                availability: {
+                    MyApplicationSingleton.current.isUserLogged
+                }
             )
         ]
     }
