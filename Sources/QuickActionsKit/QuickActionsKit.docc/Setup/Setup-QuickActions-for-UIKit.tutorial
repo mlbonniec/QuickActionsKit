@@ -71,7 +71,7 @@
         }
 
         @MultipleChoice {
-            When should you call `actions.perform()` to handle a cold launch via QuickAction?
+            When should you call `manager.perform()` to handle a cold launch via QuickAction?
 
             @Choice(isCorrect: true) {
                 In `scene(_:willConnectTo:options:)` by checking `connectionOptions.shortcutItem`
@@ -99,7 +99,7 @@
         }
 
         @MultipleChoice {
-            What is the purpose of calling `actions.invalidate()` in `sceneWillResignActive(_:)`?
+            What is the purpose of calling `manager.invalidate()` in `sceneWillResignActive(_:)`?
 
             @Choice(isCorrect: false) {
                 To save the user's current position in the app
