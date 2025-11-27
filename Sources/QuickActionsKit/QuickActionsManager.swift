@@ -26,10 +26,10 @@ where
     }
 
     // MARK: Methods
-    /// Update your application quick actions based on your current application state.
+    /// Invalidate your application quick actions based on your current application state.
     ///
     /// - Note: You should call this method once your application/scene is resigning.
-    public func update() {
+    public func invalidate() {
         UIApplication.shared.shortcutItems = configuration.shortcutItems
     }
 

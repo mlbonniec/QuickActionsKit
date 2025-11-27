@@ -32,36 +32,54 @@ enum MyQuickActionsType: String, QuickActionType {
 }
 
 class MyQuickActions: QuickActions {
-    var actions: Set<QuickActionsItem<MyQuickActionsType>> = [
-        QuickActionsItem<MyQuickActionsType>(
-            type: .editor,
-            title: "Edit",
-            subtitle: nil,
-            icon: nil,
-            availability: MyApplicationSingleton.current.isUserLogged
-        )
-    ]
-
-    func perform(for type: MyQuickActionsType, with userInfo: [String:NSSecureCoding]?) -> Bool {
-        switch type {
-        case .editor:
-            print("Navigate to the editor")
-        }
+    func getActions() -> Set<QuickActionsItem<MyQuickActionsType>> {
+        [
+            QuickActionsItem<MyQuickActionsType>(
+                type: .editor,
+                title: "Edit",
+                subtitle: nil,
+                icon: nil,
+                availability: MyApplicationSingleton.current.isUserLogged
+            )
+        ]
     }
 }
 ```
 
-Then, provide your QuickActions to the `QuickActionsManager` and call `perform(action:)` and `update()` in your application's lifecycle.
+Then, setup the handler that'll take care of executing the desired actions. We recommend you to conform your `SceneDelegate` to the `QuickActionsHandler`.
 
 ```swift
-let actions: QuickActionsManager = QuickActionsManager(HMQuickActions())
+@MainActor
+class SceneDelegate: UIResponder, UIWindowSceneDelegate {}
 
-if let shortcutItem = connectionOptions.shortcutItem {
-    actions.perform(action: shortcutItem)
+extension SceneDelegate: QuickActionsHandler {
+    func handle(_ action: MyQuickActionsType, userInfo: [String:any NSSecureCoding]?) async -> Bool {
+        switch action {
+        case .home:
+            // …
+        case .create:
+            // …
+        }
+
+        return true
+    }
 }
 
-actions.perform(action: shortcutItem)
-actions.update()
+```
+
+Finally, provide your QuickActions to the `QuickActionsManager` and call `handle(shortcut:)` and `invalidate()` in your application's lifecycle.
+
+```swift
+var manager: QuickActionsManager<MyQuickActions, SceneDelegate>?
+
+if let shortcutItem = connectionOptions.shortcutItem {
+    Task {
+        await manager?.handle(shortcut: shortcutItem)
+    }
+}
+
+await manager?.handle(shortcut: shortcutItem)
+manager?.invalidate()
 ```
 
 ### License

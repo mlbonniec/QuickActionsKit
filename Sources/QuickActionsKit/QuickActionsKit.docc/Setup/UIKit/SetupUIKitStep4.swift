@@ -30,6 +30,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        manager?.update()
+        manager?.invalidate()
     }
 }

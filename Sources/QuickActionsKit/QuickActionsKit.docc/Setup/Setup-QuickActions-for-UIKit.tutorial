@@ -99,7 +99,7 @@
         }
 
         @MultipleChoice {
-            What is the purpose of calling `actions.update()` in `sceneWillResignActive(_:)`?
+            What is the purpose of calling `actions.invalidate()` in `sceneWillResignActive(_:)`?
 
             @Choice(isCorrect: false) {
                 To save the user's current position in the app
